@@ -47,7 +47,7 @@ module "eks" {
       ami_type       = var.ami_type
       key_name       = "my-webapp-key"
       
-      vpc_security_group_ids = [aws_security_group.webapp_sg.id]
+      vpc_security_group_ids = var.security_group_ids
     }
   }
 

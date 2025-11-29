@@ -1,10 +1,10 @@
 
-variable "aws_region"  { 
-type = string 
-default = "eu-north-1"
+variable "aws_region" {
+  type    = string
+  default = "eu-north-1"
 }
 
-variable "cluster_name" { 
-type = string 
-default = "dev-eks" 
+variable "cluster_name" {
+  type    = string
+  default = "dev-eks"
 }

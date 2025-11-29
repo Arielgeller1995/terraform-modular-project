@@ -41,10 +41,10 @@ output "internet_gateway_id" {
   value       = module.vpc.igw_id
 }
 
-output "nat_gateway_ids" {
-  description = "NAT Gateway IDs"
-  value       = module.vpc.nat_gateway_ids
-}
+#output "nat_gateway_ids" {
+#  description = "NAT Gateway IDs"
+#  value       = module.vpc.nat_gateway_ids
+#}
 
 # Security Group (webapp)
 output "webapp_sg_id" {

@@ -6,9 +6,39 @@ on:
       - main
 
 jobs:
+  detect-changes:
+    name: Detect changed stacks
+    runs-on: ubuntu-latest
+
+    outputs:
+      dev_networking: ${{ steps.filter.outputs.dev_networking }}
+      dev_iam: ${{ steps.filter.outputs.dev_iam }}
+      dev_security: ${{ steps.filter.outputs.dev_security }}
+      dev_kubernetes: ${{ steps.filter.outputs.dev_kubernetes }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            dev_networking:
+              - 'environments/dev/eu-north-1/networking/**'
+            dev_iam:
+              - 'environments/dev/eu-north-1/iam/**'
+            dev_security:
+              - 'environments/dev/eu-north-1/security/**'
+            dev_kubernetes:
+              - 'environments/dev/eu-north-1/kubernetes/**'
+
   terraform-dev-networking:
     name: Terraform Dev Networking
     runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.dev_networking == 'true'
 
     env:
       AWS_REGION: eu-north-1
@@ -43,4 +73,127 @@ jobs:
 
       - name: Terraform plan
         working-directory: environments/dev/eu-north-1/networking
+        run: terraform plan -input=false -no-color
+
+  terraform-dev-iam:
+    name: Terraform Dev IAM
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.dev_iam == 'true'
+
+    env:
+      AWS_REGION: eu-north-1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform fmt
+        working-directory: environments/dev/eu-north-1/iam
+        run: terraform fmt -check
+
+      - name: Terraform init
+        working-directory: environments/dev/eu-north-1/iam
+        run: terraform init -input=false
+
+      - name: Terraform validate
+        working-directory: environments/dev/eu-north-1/iam
+        run: terraform validate
+
+      - name: Terraform plan
+        working-directory: environments/dev/eu-north-1/iam
+        run: terraform plan -input=false -no-color
+
+  terraform-dev-security:
+    name: Terraform Dev Security
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.dev_security == 'true'
+
+    env:
+      AWS_REGION: eu-north-1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform fmt
+        working-directory: environments/dev/eu-north-1/security
+        run: terraform fmt -check
+
+      - name: Terraform init
+        working-directory: environments/dev/eu-north-1/security
+        run: terraform init -input=false
+
+      - name: Terraform validate
+        working-directory: environments/dev/eu-north-1/security
+        run: terraform validate
+
+      - name: Terraform plan
+        working-directory: environments/dev/eu-north-1/security
+        run: terraform plan -input=false -no-color
+
+  terraform-dev-kubernetes:
+    name: Terraform Dev Kubernetes
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.dev_kubernetes == 'true'
+
+    env:
+      AWS_REGION: eu-north-1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform fmt
+        working-directory: environments/dev/eu-north-1/kubernetes
+        run: terraform fmt -check
+
+      - name: Terraform init
+        working-directory: environments/dev/eu-north-1/kubernetes
+        run: terraform init -input=false
+
+      - name: Terraform validate
+        working-directory: environments/dev/eu-north-1/kubernetes
+        run: terraform validate
+
+      - name: Terraform plan
+        working-directory: environments/dev/eu-north-1/kubernetes
         run: terraform plan -input=false -no-color

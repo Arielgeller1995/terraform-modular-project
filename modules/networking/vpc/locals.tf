@@ -8,8 +8,10 @@ locals {
     "eu-north-1c",
   ]
 
-  tags = {
-    Environment = "dev"
-    Project     = "terraform-modular-learning"
-  }
+tags = {
+  Environment = "dev"
+  Project     = "terraform-modular-learning"
+  Cluster     = "dev-eks-cluster"
+  Unit        = "presales"
+}
 }

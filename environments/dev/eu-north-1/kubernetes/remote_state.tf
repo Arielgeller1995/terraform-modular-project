@@ -1,6 +1,1 @@
-data "terraform_remote_state" "networking" {
-  backend = "local"
-  config = {
-    path = "../networking/terraform.tfstate"
-  }
-}
+# Placeholder – no remote state used yet.

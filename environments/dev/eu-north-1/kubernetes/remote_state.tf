@@ -1,6 +1,6 @@
-data "terraform_remote_state" "networking"{
+data "terraform_remote_state" "networking" {
   backend = "local"
-  config =  { 
+  config = {
     path = "../networking/terraform.tfstate"
   }
 }

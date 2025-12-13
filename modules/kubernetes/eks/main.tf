@@ -31,7 +31,7 @@ module "eks" {
   manage_aws_auth_configmap = true
   aws_auth_users = [
     {
-      userarn  = "arn:aws:iam::045973518776:user/AdministratorAccess" 
+      userarn  = "arn:aws:iam::045973518776:user/AdministratorAccess"
       username = "admin-user"
       groups   = ["system:masters"]
     },
@@ -46,7 +46,7 @@ module "eks" {
       instance_types = var.instance_types
       ami_type       = var.ami_type
       key_name       = "my-webapp-key"
-      
+
       vpc_security_group_ids = var.security_group_ids
     }
   }

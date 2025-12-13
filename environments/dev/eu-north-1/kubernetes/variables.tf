@@ -4,31 +4,31 @@ variable "aws_region" {
 }
 
 #variable "cluster_version" {
- # type    = string
-  #default = "1.33"
+# type    = string
+#default = "1.33"
 #}
 
 #variable "ami_type" {
- # type    = string
-  #default = "AL2_x86_64"
+# type    = string
+#default = "AL2_x86_64"
 #}
 
 #variable "instance_types" {
- # type    = list(string)
-  #default = ["t3.micro"]
+# type    = list(string)
+#default = ["t3.micro"]
 #}
 
 #variable "min_size" {
 #  type    = number
- # default = 1
+# default = 1
 #}
 
 #variable "desired_size" {
- # type    = number
- # default = 1
+# type    = number
+# default = 1
 #}
 
 #variable "max_size" {
- # type    = number
-  #default = 2
+# type    = number
+#default = 2
 #}

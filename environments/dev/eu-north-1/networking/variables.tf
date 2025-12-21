@@ -6,5 +6,7 @@ variable "aws_region" {
 
 variable "cluster_name" {
   type    = string
-  default = "dev-eks"
+  # Keep this aligned with the EKS environment's cluster_name; it's also used
+  # to tag subnets for EKS discovery (kubernetes.io/cluster/<name>).
+  default = "dev-eks-cluster"
 }

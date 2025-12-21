@@ -31,6 +31,13 @@ variable "tags" {
   default     = {}
 }
 
+# Optional: when set, subnets get the standard EKS cluster discovery tag.
+variable "cluster_name" {
+  type        = string
+  description = "EKS cluster name used for subnet discovery tags (kubernetes.io/cluster/<name>)"
+  default     = null
+}
+
 # Security Group (webapp nodes) parameters
 variable "webapp_sg_name" {
   type        = string

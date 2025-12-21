@@ -5,5 +5,6 @@ module "vpc" {
   azs                = local.azs
   enable_nat_gateway = true
   single_nat_gateway = true
+  cluster_name       = local.name
   tags               = local.tags
 }

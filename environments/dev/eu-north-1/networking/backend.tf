@@ -1,9 +1,9 @@
 terraform {
-  backend "s3" {
-    bucket         = "ariel-terraform-state"          
-    key            = "dev/eu-north-1/networking/terraform.tfstate"     
-    region         = "eu-north-1"
-    dynamodb_table = "terraform-locks"                     
-    encrypt        = true
+  # Free-tier friendly default: local state.
+  #
+  # If you want remote state later, switch this to an `s3` backend
+  # and provision the bucket + DynamoDB lock table separately.
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }

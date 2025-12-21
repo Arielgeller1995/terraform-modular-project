@@ -7,13 +7,16 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "EKS cluster version"
   type        = string
-  default     = "1.30"
+  default     = "1.32"
 }
 
 variable "ami_type" {
   description = "Node group AMI type"
   type        = string
-  default     = "AL2_x86_64"
+  # AL2023 is the recommended default for new clusters and newer K8s versions.
+  # Valid values depend on AWS/EKS; common x86_64 choice:
+  # - AL2023_x86_64_STANDARD
+  default = "AL2023_x86_64_STANDARD"
 }
 
 variable "instance_types" {

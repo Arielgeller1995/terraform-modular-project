@@ -16,7 +16,7 @@ variable "azs" {
 variable "enable_nat_gateway" {
   type        = bool
   description = "Whether to create NAT Gateway(s)"
-  default     = true
+  default     = false
 }
 
 variable "single_nat_gateway" {

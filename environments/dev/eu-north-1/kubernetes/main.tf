@@ -19,8 +19,12 @@ module "eks" {
   version = "21.10.1"
 
   name               = var.cluster_name
-  kubernetes_version = "1.32"
+  kubernetes_version = "1.30"
   create             = true
+
+  # ===== Cluster Access =====
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
 
   # ===== Networking =====
   vpc_id     = data.terraform_remote_state.networking.outputs.vpc_id
@@ -35,7 +39,8 @@ module "eks" {
       desired_size = 1
       max_size     = 2
 
-      instance_types = ["t3.medium"]
+      ami_type       = var.ami_type
+      instance_types = var.instance_types
       disk_size      = 20
       capacity_type  = "ON_DEMAND"
     }

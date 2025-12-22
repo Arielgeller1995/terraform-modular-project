@@ -35,7 +35,7 @@ module "eks" {
       desired_size    = 1
       max_size        = 2
 
-      instance_types = ["t3.micro"]
+      instance_types = var.instance_types
       disk_size      = 20
       capacity_type  = "ON_DEMAND"
     }
@@ -43,12 +43,21 @@ module "eks" {
 
   # ===== IAM / IRSA =====
   enable_irsa = true
+  enable_cluster_creator_admin_permissions = true
 
-  # ===== Addons (required for working nodes) =====
-  # cluster_addons was removed because this module version does not accept that attribute here;
-  # manage Amazon VPC CNI, kube-proxy and CoreDNS via separate Helm/kubernetes resources or use
-  # the module's currently supported inputs for addons if available.
-  
+  # ===== Addons =====
+  cluster_addons = {
+    coredns = {
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent = true
+    }
+  }
+
   # ===== Tags =====
   tags = {
     Environment = "dev"

@@ -20,8 +20,18 @@ output "public_subnet_ids" {
   value       = module.vpc.public_subnets
 }
 
+output "public_subnets" {
+  description = "IDs of the public subnets (alias for compatibility)"
+  value       = module.vpc.public_subnets
+}
+
 output "private_subnet_ids" {
   description = "IDs of the private subnets"
+  value       = module.vpc.private_subnets
+}
+
+output "private_subnets" {
+  description = "IDs of the private subnets (alias for compatibility)"
   value       = module.vpc.private_subnets
 }
 

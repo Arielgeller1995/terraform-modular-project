@@ -19,7 +19,7 @@ variable "ami_type" {
 variable "instance_types" {
   description = "Node group instance types"
   type        = list(string)
-  default     = ["t3.micro"]
+  default     = ["t3.small"]  # Changed from t3.micro for better stability
 }
 
 variable "min_size" {

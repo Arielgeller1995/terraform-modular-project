@@ -10,6 +10,12 @@ variable "cluster_version" {
   default     = "1.30"
 }
 
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-north-1"
+}
+
 variable "ami_type" {
   description = "Node group AMI type"
   type        = string

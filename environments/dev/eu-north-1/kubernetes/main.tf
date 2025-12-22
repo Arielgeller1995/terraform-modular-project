@@ -29,13 +29,13 @@ module "eks" {
   # ===== Node Groups =====
   eks_managed_node_groups = {
     default = {
-      name = "default-ng"
+      name            = "default-ng"
+      use_name_prefix = false
+      min_size        = 1
+      desired_size    = 1
+      max_size        = 2
 
-      min_size     = 1
-      desired_size = 1
-      max_size     = 2
-
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.micro"]
       disk_size      = 20
       capacity_type  = "ON_DEMAND"
     }
@@ -44,6 +44,11 @@ module "eks" {
   # ===== IAM / IRSA =====
   enable_irsa = true
 
+  # ===== Addons (required for working nodes) =====
+  # cluster_addons was removed because this module version does not accept that attribute here;
+  # manage Amazon VPC CNI, kube-proxy and CoreDNS via separate Helm/kubernetes resources or use
+  # the module's currently supported inputs for addons if available.
+  
   # ===== Tags =====
   tags = {
     Environment = "dev"

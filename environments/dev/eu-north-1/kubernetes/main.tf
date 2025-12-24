@@ -13,7 +13,6 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "21.10.1"
@@ -29,6 +28,15 @@ module "eks" {
   # Control plane access
   endpoint_public_access  = true
   endpoint_private_access = false
+
+  # ===== KMS =====
+  # Allow module to manage KMS key (will handle existing resources via import)
+  create_kms_key = true
+
+  # ===== CloudWatch Logging =====
+  # Enable cluster logging
+  enable_cluster_creator_admin_permissions = true
+  cluster_enabled_log_types                 = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   # ===== Node Groups =====
   eks_managed_node_groups = {

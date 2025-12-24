@@ -39,9 +39,29 @@ module "eks" {
   cluster_enabled_log_types                 = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   # ===== Node Groups =====
-  # Temporarily disabled - will be enabled after cluster is created/imported
-  # The node group module requires the cluster to exist in state first
-  eks_managed_node_groups = {}
+  eks_managed_node_groups = {
+    default = {
+      name            = "default-ng"
+      use_name_prefix = false
+      # Explicitly specify subnets for node group
+      subnet_ids = local.private_subnets
+      min_size     = var.min_size
+      desired_size = var.desired_size
+      max_size     = var.max_size
+
+      instance_types             = var.instance_types
+      ami_type                   = var.ami_type
+      disk_size                  = 20
+      capacity_type              = "ON_DEMAND"
+      iam_role_attach_cni_policy = true
+      
+      # Tags for node identification
+      tags = {
+        Name        = "${var.cluster_name}-default-node"
+        Environment = "dev"
+      }
+    }
+  }
 
   # ===== IAM / IRSA =====
   enable_irsa = true

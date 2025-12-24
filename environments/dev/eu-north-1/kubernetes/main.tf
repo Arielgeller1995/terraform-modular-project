@@ -27,8 +27,8 @@ module "eks" {
   subnet_ids = data.terraform_remote_state.networking.outputs.private_subnets
 
   # Control plane access
-  cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = false
+  endpoint_public_access  = true
+  endpoint_private_access = false
 
   # ===== Node Groups =====
   eks_managed_node_groups = {
@@ -37,15 +37,14 @@ module "eks" {
       use_name_prefix = false
       # Explicitly specify subnets for node group
       subnet_ids = data.terraform_remote_state.networking.outputs.private_subnets
-      
       min_size     = var.min_size
       desired_size = var.desired_size
       max_size     = var.max_size
 
-      instance_types = var.instance_types
-      ami_type       = var.ami_type
-      disk_size      = 20
-      capacity_type  = "ON_DEMAND"
+      instance_types             = var.instance_types
+      ami_type                   = var.ami_type
+      disk_size                  = 20
+      capacity_type              = "ON_DEMAND"
       iam_role_attach_cni_policy = true
       
       # Tags for node identification

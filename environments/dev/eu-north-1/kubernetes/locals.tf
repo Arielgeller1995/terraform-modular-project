@@ -1,4 +1,4 @@
 locals {
-  vpc_id          = "vpc-0693f358aeb574e75"
-  private_subnets = ["subnet-0d917e8e335a03aba", "subnet-05c5994d46afc3d58"]
+  vpc_id          = data.terraform_remote_state.networking.outputs.vpc_id
+  private_subnets = data.terraform_remote_state.networking.outputs.private_subnets
 }

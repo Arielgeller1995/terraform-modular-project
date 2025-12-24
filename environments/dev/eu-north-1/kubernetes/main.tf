@@ -19,25 +19,40 @@ module "eks" {
   version = "21.10.1"
 
   name               = var.cluster_name
-  kubernetes_version = "1.32"
+  kubernetes_version = var.cluster_version
   create             = true
 
   # ===== Networking =====
   vpc_id     = data.terraform_remote_state.networking.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.networking.outputs.private_subnets
 
+  # Control plane access
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = false
+
   # ===== Node Groups =====
   eks_managed_node_groups = {
     default = {
       name            = "default-ng"
       use_name_prefix = false
-      min_size        = 1
-      desired_size    = 1
-      max_size        = 2
+      # Explicitly specify subnets for node group
+      subnet_ids = data.terraform_remote_state.networking.outputs.private_subnets
+      
+      min_size     = var.min_size
+      desired_size = var.desired_size
+      max_size     = var.max_size
 
-      instance_types = ["t3.micro"]
+      instance_types = var.instance_types
+      ami_type       = var.ami_type
       disk_size      = 20
       capacity_type  = "ON_DEMAND"
+      iam_role_attach_cni_policy = true
+      
+      # Tags for node identification
+      tags = {
+        Name        = "${var.cluster_name}-default-node"
+        Environment = "dev"
+      }
     }
   }
 

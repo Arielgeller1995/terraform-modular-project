@@ -6,4 +6,6 @@ module "vpc" {
   enable_nat_gateway = true
   single_nat_gateway = true
   tags               = local.tags
+  cluster_name       = var.cluster_name 
+
 }

@@ -58,17 +58,17 @@ output "nat_gateway_ids" {
 
 # Security Group (webapp)
 #output "webapp_sg_id" {
-  #description = "Security Group ID for the webapp nodes"
- # value       = aws_security_group.webapp_sg.id
+#description = "Security Group ID for the webapp nodes"
+# value       = aws_security_group.webapp_sg.id
 #}
 
 #output "webapp_sg_arn" {
-  #description = "Security Group ARN for the webapp nodes"
- # value       = aws_security_group.webapp_sg.arn
+#description = "Security Group ARN for the webapp nodes"
+# value       = aws_security_group.webapp_sg.arn
 #}
 
 #output "webapp_sg_name" {
-  #description = "Security Group name for the webapp nodes"
- # value       = aws_security_group.webapp_sg.name
+#description = "Security Group name for the webapp nodes"
+# value       = aws_security_group.webapp_sg.name
 #}
 

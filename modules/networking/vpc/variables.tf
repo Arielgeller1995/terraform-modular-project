@@ -30,6 +30,12 @@ variable "tags" {
   description = "Common tags to apply to resources"
   default     = {}
 }
+variable "cluster_name" {
+  type        = string
+  description = "EKS cluster name used for subnet discovery tags (kubernetes.io/cluster/<name>)"
+  default     = null
+}
+
 
 # Security Group (webapp nodes) parameters
 variable "webapp_sg_name" {

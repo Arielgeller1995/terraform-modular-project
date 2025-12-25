@@ -1,6 +1,7 @@
-# versions.tf - Terraform and Provider Version Requirements
-
+#terraform {
+#required_version = ">= 1.9.5"
 terraform {
+  required_version = ">= 1.9.0, < 2.0.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -8,7 +9,7 @@ terraform {
     }
   }
 }
-
 provider "aws" {
   region = var.aws_region
 }
+

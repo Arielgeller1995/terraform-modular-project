@@ -4,7 +4,6 @@ module "eks" {
 
   name               = var.cluster_name
   kubernetes_version = var.cluster_version
-  create             = true
 
   # ===== Networking =====
   vpc_id     = local.vpc_id
@@ -39,10 +38,6 @@ module "eks" {
   }
   # ===== IAM / IRSA =====
   enable_irsa = true
-  # ===== Addons (required for working nodes) =====
-  # cluster_addons was removed because this module version does not accept that attribute here;
-  # manage Amazon VPC CNI, kube-proxy and CoreDNS via separate Helm/kubernetes resources or use
-  # the module's currently supported inputs for addons if available.
   # ===== Tags =====
   tags = {
     Environment = "dev"

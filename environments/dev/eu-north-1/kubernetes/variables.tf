@@ -4,6 +4,12 @@ variable "cluster_name" {
   default     = "dev-eks-cluster"
 }
 
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-north-1"
+}
+
 variable "cluster_version" {
   description = "EKS cluster version"
   type        = string

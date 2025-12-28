@@ -13,6 +13,10 @@ module "eks" {
   endpoint_public_access  = true
   endpoint_private_access = false
 
+  # ===== CloudWatch Logging =====
+  # Disabled to avoid CloudWatch errors during setup
+  create_cloudwatch_log_group = false
+
   # ===== Node Groups =====
   eks_managed_node_groups = {
     default = {
@@ -23,7 +27,7 @@ module "eks" {
       min_size     = var.min_size
       desired_size = var.desired_size
       max_size     = var.max_size
-
+      kubernetes_version = var.cluster_version
       instance_types             = var.instance_types
       ami_type                   = var.ami_type
       disk_size                  = 20

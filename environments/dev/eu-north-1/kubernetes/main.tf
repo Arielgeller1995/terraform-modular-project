@@ -11,7 +11,7 @@ module "eks" {
 
   # Control plane access
   endpoint_public_access  = true
-  endpoint_private_access = false
+  endpoint_private_access = true
 
   # ===== CloudWatch Logging =====
   # Disabled to avoid CloudWatch errors during setup

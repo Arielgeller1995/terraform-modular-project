@@ -13,6 +13,10 @@ module "eks" {
   endpoint_public_access  = true
   endpoint_private_access = false
 
+  # ===== CloudWatch Logging =====
+  cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  create_cloudwatch_log_group = true
+
   # ===== Node Groups =====
   eks_managed_node_groups = {
     default = {

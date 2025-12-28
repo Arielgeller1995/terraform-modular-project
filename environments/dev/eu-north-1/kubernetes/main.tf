@@ -13,11 +13,6 @@ module "eks" {
   endpoint_public_access  = true
   endpoint_private_access = false
 
-  # ===== CloudWatch Logging =====
-  # Disabled to avoid CloudWatch errors during setup
-  cluster_enabled_log_types = []
-  create_cloudwatch_log_group = false
-
   # ===== Node Groups =====
   eks_managed_node_groups = {
     default = {
